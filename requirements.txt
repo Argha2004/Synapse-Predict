@@ -1,4 +1,6 @@
-pip==25.3
+pip>=25.3
+setuptools>=70.0.0
+wheel>=0.45.0
 Flask==2.2.5
 gunicorn
 pandas==2.2.3
