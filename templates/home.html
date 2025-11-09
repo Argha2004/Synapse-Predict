@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synapse Predict</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #2D5A6C;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Header - left-aligned logo/title */
+    header {
+      width: 100%;
+      background: linear-gradient(180deg, #244E5F 0%, #1E4253 100%);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Move content to the left */
+      padding: 30px 60px; /* Increased side padding */
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      box-shadow: 0 3px 20px rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.5px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    /* Main container */
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
+      background-color: #2D5A6C;
+      border-radius: 25px;
+      padding: 60px;
+      margin-top: 180px; /* Space for fixed header */
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .text-section {
+      flex: 1;
+      margin-right: 40px;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-title img {
+      width: 80px;
+    }
+
+    .logo-title h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .logo-title h1 span {
+      color: #4ab3ff;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: #c8d8f0;
+      margin: 15px 0 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #4ab3ff;
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:hover {
+      background-color: #3399ff;
+      transform: translateY(-2px);
+    }
+
+    .robot-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .robot-section img {
+      width: 80%;
+      max-width: 340px;
+      border-radius: 50%;
+      background: #0d2845;
+      padding: 18px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      header {
+        padding: 20px 25px;
+      }
+
+      .container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 25px;
+        margin-top: 200px;
+      }
+
+      .text-section {
+        margin: 0 0 30px;
+      }
+
+      .robot-section img {
+        width: 65%;
+      }
+
+      .logo-title {
+        justify-content: center;
+      }
+    }
+    footer{
+      background: rgb(25, 60, 75);
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.4px;
+      margin-top: 130px;
+      width: 100%;
+    }
+    footer span {
+      color: var(--primary);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Synapse</h1>
+  </header>
+
+  <div class="container">
+    <div class="text-section">
+      <div class="logo-title">
+        <h1><span>SYNAPSE</span> PREDICT</h1>
+      </div>
+      <p class="tagline">Transform raw data into meaningful clusters and actionable intelligence.</p>
+      <a href="{{ url_for('dashboard') }}" class="btn">Let's Go</a>
+    </div>
+
+    <div class="robot-section">
+      <img src="{{ url_for('static', filename='robot.png') }}" alt="Synapse Predict Robot">
+    </div>
+  </div>
+</body>
+ <footer>
+    <p>© 2025 <span>Synapse Predict</span>. Tech Dreamers</p>
+  </footer>
+</html>

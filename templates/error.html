@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="container" style="padding:40px 20px">
+  <section class="card error-card" style="max-width:720px;margin:0 auto">
+    <h2>⚠️ Something went wrong</h2>
+    <p>{{ message }}</p>
+    <a class="btn" href="{{ url_for('dashboard') }}">Go Back to Dashboard</a>
+  </section>
+</main>
+{% endblock %}

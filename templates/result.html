@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Digital DNA - Analysis Results</title>
+  <style>
+    :root {
+      --primary: #42a5f5;
+      --primary-dark: #1e88e5;
+      --bg-dark: #0b1e33;
+      --card-bg: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-light: #f4f7fa;
+      --muted: #52667a;
+      --border: #e7eef6;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-dark) url("{{ url_for('static', filename='background2.jpg') }}") repeat center center fixed;
+      background-size: cover;
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    header.app-header {
+      background:  rgb(25, 60, 75);
+      color: var(--text-light);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .brand h1 { font-size: 1.6rem; font-weight: 700; color: var(--primary); letter-spacing: .5px; }
+
+    .header-actions .btn {
+      background: var(--primary); color: white; border-radius: 50px;
+      padding: 10px 26px; text-decoration: none; font-weight: 600;
+      box-shadow: 0 0 12px rgba(66,165,245,.4); transition: all .3s ease;
+    }
+    .header-actions .btn:hover { background: var(--primary-dark); box-shadow: 0 0 25px rgba(66,165,245,.8); transform: translateY(-2px); }
+
+    main.container { width: min(1100px, 92%); margin: 40px auto 60px; display: flex; flex-direction: column; gap: 35px; }
+
+    .card {
+      background: var(--card-bg); border-radius: 18px; box-shadow: 0 6px 25px rgba(0,0,0,.16);
+      padding: 25px 30px; border: 1px solid rgba(15,34,55,.06); animation: fadeIn .6s ease-out;
+    }
+    @keyframes fadeIn { from {opacity:0; transform: translateY(12px);} to {opacity:1; transform: translateY(0);} }
+    .card h2 { font-size: 1.35rem; color: #0d47a1; border-bottom: 2px solid rgba(66,165,245,.28); padding-bottom: 10px; margin: 0 0 18px; }
+
+    /* Vertically aligned result cards */
+    .cards-grid { display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; }
+
+    .result-card{
+      display: grid; grid-template-columns: 60% 40%; gap: 0; width: 100%;
+      background: #fff; border-radius: 16px; border: 1px solid var(--border);
+      box-shadow: 0 10px 26px rgba(23,40,66,.10); overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .result-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 34px rgba(23,40,66,.16); }
+
+    .image-section{ background:#f7f9fc; padding:16px; display:grid; place-items:center; border-right:1px dashed var(--border); }
+    .image-section img{ width:100%; height:auto; border-radius:10px; }
+
+    .info-section{ padding:18px 20px 20px 22px; display:flex; flex-direction:column; justify-content:space-between; gap:12px; }
+    .card-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .card-title{ font-size:1.05rem; font-weight:700; color:#0f2a44; margin:0; }
+    .badge{ font-size:.72rem; font-weight:700; letter-spacing:.3px; background:rgba(66,165,245,.12); color:var(--primary-dark); padding:6px 10px; border-radius:999px; white-space:nowrap; }
+    .explanation{ font-size:.95rem; color:var(--muted); line-height:1.65; margin:2px 0 6px; }
+
+    .actions{ margin-top:auto; display:flex; gap:10px; }
+    .btn{ background:var(--primary); color:#fff; border:none; border-radius:10px; padding:11px 22px; font-weight:600; text-decoration:none; text-align:center; box-shadow:0 4px 12px rgba(66,165,245,.35); transition:all .2s ease; }
+    .btn:hover{ background:var(--primary-dark); transform:translateY(-2px); box-shadow:0 8px 22px rgba(66,165,245,.55); }
+
+    footer{ background:rgba(10,20,35,.95); color:#b0c7e4; text-align:center; padding:18px; font-size:.9rem; letter-spacing:.3px; border-top:1px solid rgba(255,255,255,.1); }
+    footer strong{ color:var(--primary); }
+
+    @media (max-width: 720px){
+      .result-card{ grid-template-columns: 1fr; }
+      .image-section{ border-right:0; border-bottom:1px dashed var(--border); }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="brand"><h1>Digital DNA Dashboard</h1></div>
+    <div class="header-actions"><a class="btn" href="{{ url_for('dashboard') }}">Back</a></div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Clustering Metrics</h2>
+      <p><strong>Silhouette Score:</strong> {{ metrics.silhouette }}</p>
+      <p><strong>Davies–Bouldin Index:</strong> {{ metrics.davies_bouldin }}</p>
+      <p><strong>Calinski–Harabasz Index:</strong> {{ metrics.calinski_harabasz }}</p>
+      <p><strong>Number of clusters:</strong> {{ metrics.n_clusters }}</p>
+      <p><strong>Assessment:</strong> {{ metrics.assessment }}</p>
+    </section>
+
+    <section class="card">
+      <h2>Model Outputs</h2>
+      <div class="cards-grid">
+        {% for key, fname in outputs.items() %}
+        <article class="result-card">
+          <div class="image-section">
+            <img src="{{ url_for('static', filename='outputs/' + fname) }}" alt="{{ key }}">
+          </div>
+          <div class="info-section">
+            <div class="card-head">
+              <h3 class="card-title">{{ key.replace('_',' ').title() }}</h3>
+              <span class="badge">#{{ loop.index }}</span>
+            </div>
+            <p class="explanation">
+              {{ descriptions.get(key) }}
+            </p>
+            <div class="actions">
+              <a class="btn" href="{{ url_for('download_output', filename=fname) }}">Download</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="card" style="text-align:center;">
+      <a class="btn" href="{{ url_for('generate_pdf') }}">📄 Download Full Report (PDF)</a>
+    </section>
+  </main>
+
+  <footer>© 2025 <strong>Digital DNA</strong>.Tech Dreamers</footer>
+</body>
+</html>
