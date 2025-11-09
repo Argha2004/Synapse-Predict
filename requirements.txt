@@ -1,7 +1,10 @@
+pip>=25.3
+setuptools>=70.0.0
+wheel>=0.45.0
 Flask==2.2.5
 gunicorn
 pandas==2.2.3
-numpy==1.26.4
+numpy==2.1.3
 scikit-learn==1.4.2
 matplotlib==3.8.0
 python-dotenv==1.0.0
